@@ -18,7 +18,7 @@ const TaskForm = () => {
   const onSubmit = async (data) => {
     const dataToAdd = {
       ...data,
-      user: _id,
+      userEmail: email,
     };
 
     try {

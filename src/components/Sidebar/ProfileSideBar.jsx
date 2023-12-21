@@ -11,7 +11,7 @@ const ProfileSideBar = () => {
   const navItem = [
     {
       name: "All Tasks",
-      to: `/dashboard/tasks`,
+      to: `/dashboard`,
     },
     {
       name: "Add Task",

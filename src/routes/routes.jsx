@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup/Signup";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AddTask from "../pages/Dashboard/AddTask/AddTask";
+import AllTasks from "../pages/Dashboard/AllTasks/AllTasks";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     children: [
+      {
+        path: "/dashboard",
+        element: <AllTasks />,
+      },
       {
         path: "/dashboard/add-task",
         element: <AddTask />,
