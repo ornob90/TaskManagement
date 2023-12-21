@@ -11,15 +11,15 @@ const Task = ({ status, task, onDropTask }) => {
   const { mutateAsync: removeTask } = useDeletePublic([["Tasks", user?.email]]);
 
   const [{ isDragging }, dragRef] = useDrag({
-    type: status,
+    type: "tasks",
     item: () => ({ ...task }),
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
-
-      if (item) {
-        onDropTask(item, status);
-      }
-    },
+    // end: (item, monitor) => {
+    //   const dropResult = monitor.getDropResult();
+    //   console.log(dropResult);
+    //   if (item) {
+    //     onDropTask(item, status);
+    //   }
+    // },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

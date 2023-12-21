@@ -1,17 +1,30 @@
 import React from "react";
 import Task from "../Task/Task";
 import { useDrop } from "react-dnd";
+import usePatchPublic from "../../../../hooks/apiPublic/usePatchPublic";
+import useAuth from "../../../../hooks/auth/useAuth";
+import toast from "react-hot-toast";
+import usePutPublic from "../../../../hooks/apiPublic/usePutPublic";
 
 const TaskContainer = ({ status, tasks }) => {
   const [{ isOver }, taskRef] = useDrop({
-    accept: status,
+    accept: "tasks",
+    drop: (item) => onDropTask(item),
     collect: (monitor) => ({ isOver: !!monitor.isOver() }),
   });
 
-  const onDropTask = async (item, status) => {
-    console.log("hitted");
-    console.log(item);
-    console.log("updatedStatus: ", status);
+  const { user } = useAuth();
+
+  const { mutateAsync: updateStatus } = usePutPublic([["Tasks", user?.email]]);
+
+  const onDropTask = async (item) => {
+    const { _id } = item;
+    console.log(status);
+    try {
+      const response = await updateStatus(`/tasks/${_id}?status=${status}`, {});
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
