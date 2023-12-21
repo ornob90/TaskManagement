@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import useUser from "../../hooks/others/useUser";
 import usePostPublic from "../../hooks/apiPublic/usePostPublic";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const TaskForm = () => {
   const { _id, email } = useUser() || {};
@@ -15,6 +16,8 @@ const TaskForm = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     const dataToAdd = {
       ...data,
@@ -24,6 +27,7 @@ const TaskForm = () => {
     try {
       const res = await addTask(dataToAdd);
       toast.success("Added");
+      navigate("/dashboard");
     } catch (error) {
       toast.error(error.message);
     }

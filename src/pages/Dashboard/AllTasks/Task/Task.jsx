@@ -4,10 +4,26 @@ import Swal from "sweetalert2";
 import useDeletePublic from "../../../../hooks/apiPublic/useDeletePublic";
 import useAuth from "../../../../hooks/auth/useAuth";
 import toast from "react-hot-toast";
+import { useDrag } from "react-dnd";
 
-const Task = ({ task }) => {
+const Task = ({ status, task, onDropTask }) => {
   const { user } = useAuth();
   const { mutateAsync: removeTask } = useDeletePublic([["Tasks", user?.email]]);
+
+  const [{ isDragging }, dragRef] = useDrag({
+    type: status,
+    item: () => ({ ...task }),
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+
+      if (item) {
+        onDropTask(item, status);
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
   const handleDelete = async () => {
     const result = await Swal.fire({
@@ -30,7 +46,7 @@ const Task = ({ task }) => {
   };
 
   return (
-    <div className="w-full p-2 border">
+    <div className="w-full p-2 border" ref={dragRef}>
       <div className="flex items-center justify-between ">
         <div className="">
           <h1 className="text-sm font-bold">{task?.title}</h1>
