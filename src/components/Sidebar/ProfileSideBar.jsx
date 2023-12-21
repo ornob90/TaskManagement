@@ -10,32 +10,12 @@ const ProfileSideBar = () => {
   const [activeItem, setActiveItem] = useState("Account");
   const navItem = [
     {
-      name: "Account",
-      to: `/profile/1`,
+      name: "All Tasks",
+      to: `/dashboard/tasks`,
     },
     {
-      name: "Wishlist",
-      to: `/profile/1/wishlist`,
-    },
-    {
-      name: "Orders",
-      to: `/profile/1/orders`,
-    },
-    {
-      name: "Sales Overview",
-      to: `/profile/1/admin/sales-overview`,
-    },
-    {
-      name: "Manage Orders",
-      to: `/profile/1/admin/orders-manage`,
-    },
-    {
-      name: "Manage Products",
-      to: `/profile/1/admin/product-manage`,
-    },
-    {
-      name: "Manage Users",
-      to: `/profile/1/admin/manage-users`,
+      name: "Add Task",
+      to: `/dashboard/add-task`,
     },
   ];
 
@@ -89,7 +69,7 @@ const ProfileSideBar = () => {
                 onClick={() => setActiveItem(name)}
                 className={`text-sm sm:text-base flex items-center gap-4  hover:bg-white hover:text-black duration-[.3s] py-2 pl-1 cursor-pointer ${
                   activeItem === name ? " bg-white text-black" : "text-white"
-                } ${show ? "" : "hidden"}`}
+                } `}
               >
                 {name}
               </li>
