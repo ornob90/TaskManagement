@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer {
+  .font-poppins {
+    font-family: "Poppins", sans-serif;
+  }
+
+  .bg-banner {
+    background: linear-gradient(
+        to right,
+        rgb(214 214 214 / 84%),
+        rgb(0 0 0 / 0%)
+      ),
+      url("https://images.unsplash.com/photo-1592890288564-76628a30a657?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    background-position: center;
+  }
+  .bg-login {
+    background: linear-gradient(
+        to right,
+        rgb(31 31 31 / 84%),
+        rgb(250 0 0 / 0%)
+      ),
+      url("https://png.pngtree.com/background/20230611/original/pngtree-person-is-taking-a-photo-of-something-inside-a-field-picture-image_3130472.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
