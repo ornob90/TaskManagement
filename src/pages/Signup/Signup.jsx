@@ -7,6 +7,7 @@ import useAuth from "../../hooks/auth/useAuth";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "../Loading/Loading";
+import { updateProfile } from "firebase/auth";
 
 const Signup = () => {
   const { signUpMethod, signInMethod, loading: authLoading, user } = useAuth();
@@ -15,14 +16,15 @@ const Signup = () => {
 
   const [loading, setLoading] = useState(false);
   const axiosPublic = useAxiosPublic();
-
+  const [role, setRole] = useState("Developer");
+  const [name, setName] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const { mutateAsync: addUser } = usePostPublic(null, "/user");
 
   useEffect(() => {
     setLoading(true);
-    console.log(user?.email);
     if (user?.email) {
-      addUser({ email: user?.email, name: user?.displayName })
+      addUser({ email: user?.email, name, role })
         .then((res) => {
           console.log(res.data);
           navigate("/");
@@ -33,16 +35,14 @@ const Signup = () => {
           setLoading(false);
           navigate("/");
           console.error(err);
-          setErrorMsg(err.message);
         });
     }
-  }, [user, user?.email]);
+  }, [user, user?.email, user?.displayName]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const name = e.target.name.value;
     const photo = e.target.photo.value;
 
     if (password.length < 6) {
@@ -72,19 +72,19 @@ const Signup = () => {
           displayName: name,
           photoURL: photo,
         });
-        addUser({ email, name })
-          .then((res) => {
-            console.log(res.data);
-            navigate("/");
-            setLoading(false);
-            toast.success("You have successfully signed up!");
-          })
-          .catch((err) => {
-            setLoading(false);
-            // navigate("/");
-            console.error(err);
-            setErrorMsg(err.message);
-          });
+        // addUser({ email, name, role })
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     navigate("/");
+        //     setLoading(false);
+        //     toast.success("You have successfully signed up!");
+        //   })
+        //   .catch((err) => {
+        //     setLoading(false);
+        //     // navigate("/");
+        //     console.error(err);
+        //     setErrorMsg(err.message);
+        //   });
       })
       .catch((err) => {
         setLoading(false);
@@ -116,39 +116,50 @@ const Signup = () => {
         <h1 className="text-2xl font-clashBold md:text-3xl">Welcome back!</h1>
         <form
           onSubmit={handleRegister}
-          className="flex flex-col gap-2 mt-6 w-full"
+          className="flex flex-col w-full gap-2 mt-6"
         >
           <Input
             name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
             placeholder="User Name"
-            className="py-2 bg-transparent border border-white rounded-sm text-sm md:text-base"
+            className="py-2 text-sm bg-transparent border border-white rounded-sm md:text-base"
           />
           <Input
             name="photo"
             required
             placeholder="Photo URL"
-            className="py-2 bg-transparent border border-white rounded-sm text-sm md:text-base"
+            className="py-2 text-sm bg-transparent border border-white rounded-sm md:text-base"
+          />
+          <Input
+            name="role"
+            onChange={(e) => setRole(e.target.value)}
+            value={role}
+            required
+            placeholder="Occupation"
+            className="py-2 text-sm bg-transparent border border-white rounded-sm md:text-base"
           />
           <Input
             name="email"
             required
             placeholder="Email"
-            className="py-2 bg-transparent border border-white rounded-sm text-sm md:text-base"
+            className="py-2 text-sm bg-transparent border border-white rounded-sm md:text-base"
           />
           <Input
             name="password"
             required
             placeholder="Password"
             type="password"
-            className="py-2 bg-transparent border border-white rounded-sm text-sm md:text-base"
+            className="py-2 text-sm bg-transparent border border-white rounded-sm md:text-base"
           />
-          <button className="bg-black text-white py-2 mt-10">Join</button>
+
+          <button className="py-2 mt-10 text-white bg-black">Join</button>
           <div className="flex justify-between gap-4">
             <Button
               onClick={handleDemo}
               type="button"
-              className="flex-1 bg-green-500 py-2 mt-3 text-sm text-white md:text-base"
+              className="flex-1 py-2 mt-3 text-sm text-white bg-green-500 md:text-base"
             >
               Demo User
             </Button>
