@@ -39,7 +39,7 @@ const ProfileSideBar = () => {
             to="/"
             className="text-lg underline cursor-pointer font-clashBold sm:text-xl"
           >
-            ShoeSphere
+            Task Management
           </Link>
           <BiLeftArrowAlt
             onClick={() => setMenuOpen(false)}
@@ -51,14 +51,14 @@ const ProfileSideBar = () => {
           <div className="w-[80px] h-[80px] rounded-full bg-white text-black flex justify-center items-center font-clashBold text-2xl">
             {/* JK */}
             <img
-              src="{curUser?.photoURL}"
+              src={curUser?.photoURL}
               alt=""
               className="object-cover w-full h-full rounded-full"
             />
           </div>
           <div>
             <p>Hi,</p>
-            <p className="font-bold">Name</p>
+            <p className="font-bold">{curUser?.displayName}</p>
           </div>
         </div>
 

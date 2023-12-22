@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../axios/useAxiosPublic";
 
 const usePatchPublic = (queryKeys) => {
-  console.log("hit usePutPublic");
+  // console.log("hit usePutPublic");
   const queryClient = useQueryClient();
   const axiosPublic = useAxiosPublic();
 

@@ -36,14 +36,13 @@ const Navbar = () => {
       name: "Home",
       slug: "/",
     },
-
     {
-      name: "Cart",
-      slug: "/cart",
+      name: "About",
+      slug: "/about",
     },
     {
-      name: "Favorite",
-      slug: "/favorite",
+      name: "Dashboard",
+      slug: "/dashboard",
     },
   ];
 
@@ -67,7 +66,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="w-max flex items-center gap-3">
           <Link to="/" className="text-lg  font-bold sm:text-xl">
-            MobileShop
+            Task Management
           </Link>
         </div>
 
@@ -75,7 +74,7 @@ const Navbar = () => {
           {/* NavItems */}
           <ul
             className={`hidden lg:flex justify-center gap-6  font-clashRegular items-center pl-[5%]  ${
-              pathname === "/" && !bgWhite ? "text-white" : ""
+              pathname === "/" && !bgWhite ? "text-black" : ""
             }`}
           >
             {navItems.map(({ name, slug }) => (
